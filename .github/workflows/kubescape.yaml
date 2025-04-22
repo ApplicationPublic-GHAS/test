@@ -46,6 +46,12 @@ jobs:
           sarif_file: results.sarif
           wait-for-processing: true
 
+      - name: Archive SARIF file
+        uses: actions/upload-artifact@v4
+        with:
+          name: sarif-results
+          path: results.sarif
+
 
 
 
