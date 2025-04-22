@@ -1,0 +1,40 @@
+# Default values for python-service
+replicaCount: 2
+
+image:
+  repository: python-service
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: NodePort
+  port: 5000
+
+resources:
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+  requests:
+    cpu: "200m"
+    memory: "256Mi"
+
+readinessProbe:
+  path: /api/health
+  initialDelaySeconds: 10
+  periodSeconds: 5
+
+livenessProbe:
+  path: /api/health
+  initialDelaySeconds: 20
+  periodSeconds: 10
+
+config:
+  debug: "False"
+  host: "0.0.0.0"
+  port: "5000"
+  dbName: "todoappdb"
+  dbUsername: "admin"
+
+secret:
+  dbHost: "mysql-db.cmc8ienqykxp.us-east-1.rds.amazonaws.com"
+  dbPassword: "admin123"

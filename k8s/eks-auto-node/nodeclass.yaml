@@ -1,0 +1,16 @@
+apiVersion: eks.amazonaws.com/v1
+kind: NodeClass
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: eks
+  name: zenimax-node-class
+spec:
+  subnetSelectorTerms:
+    - id: "subnet-0f04211d714c958bf"
+    - id: "subnet-089fe6d11dcfbc62d"
+    - id: "subnet-08e67d1aabe62035a"
+  ephemeralStorage:
+    size: "50Gi"
+  securityGroupSelectorTerms:
+    - id: "sg-0976c24ec10143e90"
+  role: zenimax-eks-autonode-role

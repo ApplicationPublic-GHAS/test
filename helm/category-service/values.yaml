@@ -1,0 +1,41 @@
+# Default values for node-service
+replicaCount: 2
+
+image:
+  repository: IMAGE
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 4000
+
+resources:
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+  requests:
+    cpu: "200m"
+    memory: "256Mi"
+
+readinessProbe:
+  path: /api/health
+  initialDelaySeconds: 10
+  periodSeconds: 5
+
+livenessProbe:
+  path: /api/health
+  initialDelaySeconds: 20
+  periodSeconds: 10
+
+config:
+  javaServiceUrl: "http://java-service:8080"
+  pythonServiceUrl: "http://python-service:5000"
+  dbName: "todoappdb"
+  dbUsername: "admin"
+  nodeEnv: "production"
+  port: "4000"
+
+secret:
+  dbHost: "mysql-db.cmc8ienqykxp.us-east-1.rds.amazonaws.com"
+  dbPassword: "admin123"

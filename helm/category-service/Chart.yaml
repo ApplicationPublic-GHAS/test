@@ -1,0 +1,9 @@
+apiVersion: v2
+name: node-service
+description: A Helm chart for deploying the Node.js service
+version: 0.1.0
+appVersion: "1.0"
+type: application
+# maintainers:
+#   - name: Your Name
+#     email: your.email@example.com

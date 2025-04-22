@@ -1,0 +1,48 @@
+name: Kubescape Scan
+
+on:
+  push:
+    branches: main
+  
+permissions:
+    id-token: write
+    contents: read
+    actions: write
+
+
+jobs:
+  # CI job
+  Scan:
+    runs-on: self-hosted
+                       
+    # Checkout code from the repository
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+        # Build trust between GitHub and AWS using OIDC connector
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+            role-to-assume: ${{ secrets.AWS_IAM_ARN }}
+            role-session-name: samplesession
+            aws-region: ${{ secrets.AWS_REGION }}
+
+      # kubescape scan
+      - name: Kubescape scan
+        uses: kubescape/github-action@main
+        continue-on-error: true
+        with:
+            format: sarif
+            outputFile: results
+
+        # Upload Kubescape scan results to Github Code Scanning
+      - name: Upload Kubescape scan results to Github Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: results.sarif
+
+
+
+
+
