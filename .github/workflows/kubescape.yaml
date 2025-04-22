@@ -13,7 +13,7 @@ permissions:
 jobs:
   # CI job
   Scan:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
                        
     # Checkout code from the repository
     steps:
